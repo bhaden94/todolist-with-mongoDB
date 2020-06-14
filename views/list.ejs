@@ -10,6 +10,7 @@
       <option value="customOption">[type a custom value]</option>
       <% customListNames.forEach(function(list){ %>
         <!-- add if for not showing current list -->
+        <% if(list.name === listTitle || list.name === "Favicon.ico"){return;}  %>
         <option name="customList"><%= list.name %></option>
       <% }); %>
     </select><input class="select" name="newList" style="display:none;" disabled="disabled"

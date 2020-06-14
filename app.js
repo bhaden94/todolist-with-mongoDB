@@ -42,6 +42,7 @@ const List = mongoose.model("List", listSchema);
 // // make a dfault item
 // const item1 = new Item({name: "Default Item"});
 // const defaultItems = [item1];
+// const defaultList = new List({name: 'Today'});
 
 app.get("/", function (req, res) {
   Item.find({}, function (err, foundItems) {
