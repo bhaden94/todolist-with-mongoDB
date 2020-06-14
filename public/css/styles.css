@@ -4,6 +4,20 @@ html {
   font-family: 'helvetica neue';
 }
 
+.box {
+  max-width: 400px;
+  margin: 50px auto;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+}
+
+
+/* header */
+#heading {
+  background-color: #A683E3;
+  text-align: center;
+}
 
 .select {
   background-color: transparent;
@@ -52,19 +66,49 @@ html {
   background-color: #A683E3;
 }
 
-.box {
-  max-width: 400px;
-  margin: 50px auto;
-  background: white;
-  border-radius: 5px;
-  box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
-}
 
-#heading {
-  background-color: #A683E3;
+/* buttons */
+#btn-box {
+  background-color: transparent;
+  box-shadow: none;
   text-align: center;
 }
 
+.btn {
+  background-color:#A683E3;
+	border-radius:5px;
+	border:1px solid #A683E3;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:1.2rem;
+  padding:16px 31px;
+  margin: 0 20px;
+	text-decoration:none;
+  width: auto;
+}
+
+#delete:hover {
+  color: #d9534f;
+  border: 1px solid #d9534f;
+}
+
+#clear:hover {
+  color: #292b2c;
+  border: 1px solid #292b2c;
+}
+
+.btn:hover {
+  background-color:transparent;
+}
+
+.btn:active {
+  position:relative;
+	top:1px;
+}
+
+/* items list */
 .item {
   min-height: 70px;
   display: flex;

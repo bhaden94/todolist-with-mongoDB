@@ -9,12 +9,18 @@
       <option selected><%= listTitle %></option>
       <option value="customOption">[type a custom value]</option>
       <% customListNames.forEach(function(list){ %>
-        <!-- add if for not showing current list -->
         <% if(list.name === listTitle || list.name === "Favicon.ico"){return;}  %>
         <option name="customList"><%= list.name %></option>
       <% }); %>
     </select><input class="select" name="newList" style="display:none;" disabled="disabled"
       onblur="if(this.value==''){toggleField(this,this.previousSibling);}">
+  </form>
+</div>
+
+<div id="btn-box" class="box">
+  <form action="/delete-clear-list" method="post">
+    <button id="delete" class="btn" type="submit" name="deleteList" value="<%=listTitle%>">Delete List</button>
+    <button id="clear" class="btn" type="submit" name="clearList" value="<%=listTitle%>">Clear List</button>
   </form>
 </div>
 

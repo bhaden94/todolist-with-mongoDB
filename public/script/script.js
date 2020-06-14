@@ -5,4 +5,3 @@ function toggleField(hideObj, showObj) {
   showObj.style.display = "inline";
   showObj.focus();
 }
-

@@ -44,6 +44,7 @@ const List = mongoose.model("List", listSchema);
 // const defaultItems = [item1];
 // const defaultList = new List({name: 'Today'});
 
+// home page
 app.get("/", function (req, res) {
   Item.find({}, function (err, foundItems) {
     List.find({}, function (err, allLists) {
@@ -56,6 +57,7 @@ app.get("/", function (req, res) {
   });
 });
 
+// custom list handling
 app.get("/:customListName", function (req, res) {
   const customListName = _.capitalize(req.params.customListName);
 
@@ -83,6 +85,7 @@ app.get("/:customListName", function (req, res) {
   });
 });
 
+// add new item to current list array
 app.post("/", function (req, res) {
   const itemName = req.body.newItem;
   const listName = req.body.list;
@@ -103,15 +106,35 @@ app.post("/", function (req, res) {
   }
 });
 
+// add custom list
 app.post("/custom", function (req, res) {
   let newList;
   // checks for user choosing existing list or user creating a new list
   req.body.newList === undefined
-    ? (newList = req.body.lists)    // this if chose existing list
+    ? (newList = req.body.lists) // this if chose existing list
     : (newList = req.body.newList); // this if create new list
   res.redirect("/" + newList);
 });
 
+app.post("/delete-clear-list", function (req, res) {
+  const buttonClicked = req.body;
+  let listName;
+  if (buttonClicked.deleteList) {
+    // delete current list
+    listName = buttonClicked.deleteList;
+    List.deleteOne({ name: listName }).then(res.redirect("/"));
+  } else {
+    // clear items of current list
+    listName = buttonClicked.clearList;
+    // clears items in collection and redirects to same page
+    List.updateOne({ name: listName }, { $set: { items: [] } }, function (err, affected) {
+      if (err) throw err;
+      res.redirect("/" + listName);
+    });
+  }
+});
+
+// delete item from list array
 app.post("/delete", function (req, res) {
   const itemToDelete = req.body.deleteItem;
   const title = req.body.listName;
@@ -137,14 +160,7 @@ app.post("/delete", function (req, res) {
   }
 });
 
-app.get("/work", function (req, res) {
-  res.render("list", { listTitle: "Work List", newListItems: workItems });
-});
-
-app.get("/about", function (req, res) {
-  res.render("about");
-});
-
+// allows us to open on localport 3000 or work with heroku
 let port = process.env.PORT;
 if (port == null || port == "") {
   port = 3000;
