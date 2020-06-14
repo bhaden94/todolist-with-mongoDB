@@ -2,16 +2,18 @@
 
 <div class="box" id="heading">
   <!-- <h1> <%= listTitle %> </h1> -->
+  
   <form class="custom-select" name="customLists" action="/custom" method="post">
     <select class="select" name="lists"
-      onchange="if(this.options[this.selectedIndex].value=='customOption'){toggleField(this,this.nextSibling); this.selectedIndex='0';}">
-      <option></option>
-      <option value="customOption">[type a custom value]</option>
+  onchange="if(this.options[this.selectedIndex].value=='customOption'){toggleField(this,this.nextSibling); this.selectedIndex='0';}else{this.form.submit()}"> 
       <option selected><%= listTitle %></option>
-      <!-- loop over lists and make them individual options -->
+      <option value="customOption">[type a custom value]</option>
+      <% customListNames.forEach(function(list){ %>
+        <!-- add if for not showing current list -->
+        <option name="customList"><%= list.name %></option>
+      <% }); %>
     </select><input class="select" name="newList" style="display:none;" disabled="disabled"
       onblur="if(this.value==''){toggleField(this,this.previousSibling);}">
-    <!-- <input type="submit" value="Submit"> -->
   </form>
 </div>
 
