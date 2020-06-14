@@ -1,24 +1,35 @@
 <%- include("header") -%>
 
-  <div class="box" id="heading">
-    <h1> <%= listTitle %> </h1>
-  </div>
+<div class="box" id="heading">
+  <!-- <h1> <%= listTitle %> </h1> -->
+  <form class="custom-select" name="customLists" action="/custom" method="post">
+    <select class="select" name="lists"
+      onchange="if(this.options[this.selectedIndex].value=='customOption'){toggleField(this,this.nextSibling); this.selectedIndex='0';}">
+      <option></option>
+      <option value="customOption">[type a custom value]</option>
+      <option selected><%= listTitle %></option>
+      <!-- loop over lists and make them individual options -->
+    </select><input class="select" name="newList" style="display:none;" disabled="disabled"
+      onblur="if(this.value==''){toggleField(this,this.previousSibling);}">
+    <!-- <input type="submit" value="Submit"> -->
+  </form>
+</div>
 
-  <div class="box">
-    <% newListItems.forEach(function(item){ %>
-      <form action="/delete" method="post">
-        <div class="item">
-          <input name="deleteItem" type="checkbox" value="<%=item._id%>" onchange="this.form.submit()">
-          <p><%=  item.name  %></p>
-        </div>
-        <input type="hidden" name="listName" value="<%= listTitle %>">
-      </form>
-    <% }); %>
+<div class="box">
+  <% newListItems.forEach(function(item){ %>
+  <form action="/delete" method="post">
+    <div class="item">
+      <input name="deleteItem" type="checkbox" value="<%=item._id%>" onchange="this.form.submit()">
+      <p><%=  item.name  %></p>
+    </div>
+    <input type="hidden" name="listName" value="<%= listTitle %>">
+  </form>
+  <% }); %>
 
-      <form class="item" action="/" method="post">
-        <input type="text" name="newItem" placeholder="New Item" autocomplete="off" autofocus>
-        <button type="submit" name="list" value="<%=listTitle%>">+</button>
-      </form>
-  </div>
+  <form class="item" action="/" method="post">
+    <input type="text" name="newItem" placeholder="New Item" autocomplete="off" autofocus>
+    <button type="submit" name="list" value="<%=listTitle%>">+</button>
+  </form>
+</div>
 
 <%- include("footer") -%>

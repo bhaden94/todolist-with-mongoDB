@@ -57,6 +57,10 @@ app.get("/", function (req, res) {
     //  res.redirect("/");
     // }
     // else {
+      // finding custom lists to make dropdown menu for quick access
+      List.find({}, function(err, foundLists) {
+        console.log(foundLists)
+      })
       res.render("list", { listTitle: "Today", newListItems: foundItems });
     // }
   });
@@ -106,6 +110,11 @@ app.post("/", function(req, res){
   }
 
 });
+
+app.post("/custom", function(req, res) {
+  const newList = req.body.newList;
+  res.redirect("/" + newList);
+})
 
 app.post("/delete", function(req, res) {
   const itemToDelete = req.body.deleteItem;
