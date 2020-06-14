@@ -126,11 +126,25 @@ app.post("/delete-clear-list", function (req, res) {
   } else {
     // clear items of current list
     listName = buttonClicked.clearList;
+    if (listName === "Today") {
+      // clear Item collection
+      Item.deleteMany({}, function (err) {
+        if (err) {
+          throw err;
+        }
+        res.redirect("/" + listName);
+      });
+    } else {
+      List.updateOne(
+        { name: listName },
+        { $set: { items: [] } },
+        (err, affected) => {
+          if (err) throw err;
+          res.redirect("/" + listName);
+        }
+      );
+    }
     // clears items in collection and redirects to same page
-    List.updateOne({ name: listName }, { $set: { items: [] } }, function (err, affected) {
-      if (err) throw err;
-      res.redirect("/" + listName);
-    });
   }
 });
 
